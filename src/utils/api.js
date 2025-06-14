@@ -128,5 +128,5 @@ export {
   getUserLogged,
   addContact,
   getContacts,
-  deleteContact
+  deleteContact,
 };

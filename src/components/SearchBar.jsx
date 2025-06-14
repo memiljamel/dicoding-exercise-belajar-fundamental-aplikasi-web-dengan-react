@@ -1,7 +1,7 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import LocaleContext from '../context/LocaleContext.js';
-import { homePage } from '../utils/content.js';
+import LocaleContext from '../context/LocaleContext';
+import { homePage } from '../utils/content';
 
 function SearchBar({ keyword, keywordChange }) {
   const { locale } = useContext(LocaleContext);
@@ -14,7 +14,7 @@ function SearchBar({ keyword, keywordChange }) {
       value={keyword}
       onChange={(event) => keywordChange(event.target.value)}
     />
-  )
+  );
 }
 
 SearchBar.propTypes = {

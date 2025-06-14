@@ -1,21 +1,19 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Route, Routes } from 'react-router';
-import { getUserLogged, putAccessToken } from '../utils/api.js';
-import LocaleContext from '../context/LocaleContext.js';
-import { homePage } from '../utils/content.js';
-import Navigation from './Navigation.jsx';
-import HomePage from '../pages/HomePage.jsx';
-import AddPage from '../pages/AddPage.jsx';
-import LoginPage from '../pages/LoginPage.jsx';
-import RegisterPage from '../pages/RegisterPage.jsx';
+import { getUserLogged, putAccessToken } from '../utils/api';
+import LocaleContext from '../context/LocaleContext';
+import { homePage } from '../utils/content';
+import Navigation from './Navigation';
+import HomePage from '../pages/HomePage';
+import AddPage from '../pages/AddPage';
+import LoginPage from '../pages/LoginPage';
+import RegisterPage from '../pages/RegisterPage';
 
 function ContactApp() {
   const [authedUser, setAuthedUser] = useState(null);
   const [initializing, setInitializing] = useState(true);
 
-  const [locale, setLocale] = useState(() => {
-    return localStorage.getItem('locale') || 'id';
-  });
+  const [locale, setLocale] = useState(() => localStorage.getItem('locale') || 'id');
 
   const toggleLocale = () => {
     setLocale((prevState) => {
@@ -23,25 +21,23 @@ function ContactApp() {
       localStorage.setItem('locale', newLocale);
       return newLocale;
     });
-  }
+  };
 
-  const localeContextValue = useMemo(() => {
-    return {
-      locale,
-      toggleLocale,
-    }
-  }, [locale]);
+  const localeContextValue = useMemo(() => ({
+    locale,
+    toggleLocale,
+  }), [locale]);
 
-  async function handleLoginSuccess({ accessToken }) {
+  const handleLoginSuccess = async ({ accessToken }) => {
     putAccessToken(accessToken);
     const { data } = await getUserLogged();
     setAuthedUser(data);
-  }
+  };
 
-  async function handleLogout() {
+  const handleLogout = () => {
     setAuthedUser(null);
     putAccessToken('');
-  }
+  };
 
   useEffect(() => {
     getUserLogged().then(({ data }) => {
@@ -51,7 +47,7 @@ function ContactApp() {
 
     return () => {
       setInitializing(true);
-    }
+    };
   }, []);
 
   if (initializing) {

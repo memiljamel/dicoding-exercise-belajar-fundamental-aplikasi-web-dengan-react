@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import useInput from '../hooks/useInput.js';
-import LocaleContext from '../context/LocaleContext.js';
-import { addPage } from '../utils/content.js';
+import useInput from '../hooks/useInput';
+import LocaleContext from '../context/LocaleContext';
+import { addPage } from '../utils/content';
 
 function ContactInput({ addContact }) {
   const [name, handleNameChange] = useInput('');
@@ -10,14 +10,14 @@ function ContactInput({ addContact }) {
 
   const { locale } = useContext(LocaleContext);
 
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     addContact({
-      name: name,
-      tag: tag,
+      name,
+      tag,
     });
-  }
+  };
 
   return (
     <form className="contact-input" onSubmit={handleSubmit}>
@@ -29,7 +29,7 @@ function ContactInput({ addContact }) {
 }
 
 ContactInput.propTypes = {
-    addContact: PropTypes.func.isRequired,
-}
+  addContact: PropTypes.func.isRequired,
+};
 
 export default ContactInput;

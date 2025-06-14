@@ -1,30 +1,28 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
-import { deleteContact, getContacts } from '../utils/api.js';
-import LocaleContext from '../context/LocaleContext.js';
-import { homePage } from '../utils/content.js';
-import ContactList from '../components/ContactList.jsx';
-import SearchBar from '../components/SearchBar.jsx';
+import { deleteContact, getContacts } from '../utils/api';
+import { homePage } from '../utils/content';
+import LocaleContext from '../context/LocaleContext';
+import ContactList from '../components/ContactList';
+import SearchBar from '../components/SearchBar';
 
 function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [contacts, setContacts] = useState([]);
-  const [keyword, setKeyword] = useState(() => {
-    return searchParams.get('keyword') || '';
-  });
+  const [keyword, setKeyword] = useState(() => searchParams.get('keyword') || '');
 
   const { locale } = useContext(LocaleContext);
 
-  async function handleDelete(id) {
+  const handleDelete = async (id) => {
     await deleteContact(id);
     const { data } = await getContacts();
     setContacts(data);
-  }
+  };
 
-  function handleKeywordChange(keyword) {
-    setKeyword(keyword);
-    setSearchParams({ keyword });
-  }
+  const handleKeywordChange = (value) => {
+    setKeyword(value);
+    setSearchParams({ keyword: value });
+  };
 
   useEffect(() => {
     getContacts().then(({ data }) => {
@@ -32,11 +30,9 @@ function HomePage() {
     });
   }, []);
 
-  const filteredContacts = contacts.filter(contact => {
-    return contact.name.toLowerCase().includes(
-      keyword.toLowerCase(),
-    );
-  });
+  const filteredContacts = contacts.filter((contact) => contact.name.toLowerCase().includes(
+    keyword.toLowerCase(),
+  ));
 
   return (
     <section>
@@ -44,7 +40,7 @@ function HomePage() {
       <h2>{homePage[locale].contactList}</h2>
       <ContactList onDelete={handleDelete} contacts={filteredContacts} />
     </section>
-  )
+  );
 }
 
 export default HomePage;

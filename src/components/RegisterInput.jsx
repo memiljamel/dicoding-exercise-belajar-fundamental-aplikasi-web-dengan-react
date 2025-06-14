@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import useInput from '../hooks/useInput.js';
-import LocaleContext from '../context/LocaleContext.js';
-import { registerPage } from '../utils/content.js';
+import useInput from '../hooks/useInput';
+import LocaleContext from '../context/LocaleContext';
+import { registerPage } from '../utils/content';
 
 function RegisterInput({ register }) {
   const [name, handleNameChange] = useInput('');
@@ -11,22 +11,22 @@ function RegisterInput({ register }) {
 
   const { locale } = useContext(LocaleContext);
 
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     register({
-      name: name,
-      email: email,
-      password: password,
+      name,
+      email,
+      password,
     });
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="register-input">
       <input type="text" placeholder={registerPage[locale].name} value={name} onChange={handleNameChange} />
       <input type="email" placeholder={registerPage[locale].email} value={email} onChange={handleEmailChange} />
       <input type="password" placeholder={registerPage[locale].password} autoComplete="current-password" value={password} onChange={handlePasswordChange} />
-      <button>{registerPage[locale].submit}</button>
+      <button type="submit">{registerPage[locale].submit}</button>
     </form>
   );
 }

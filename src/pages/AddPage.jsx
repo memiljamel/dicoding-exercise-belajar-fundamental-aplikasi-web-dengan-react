@@ -1,24 +1,24 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router';
-import { addContact } from '../utils/api.js';
-import LocaleContext from '../context/LocaleContext.js';
-import ContactInput from '../components/ContactInput.jsx';
-import { addPage } from '../utils/content.js';
+import { addContact } from '../utils/api';
+import { addPage } from '../utils/content';
+import LocaleContext from '../context/LocaleContext';
+import ContactInput from '../components/ContactInput';
 
 function AddPage() {
   const navigate = useNavigate();
 
   const { locale } = useContext(LocaleContext);
 
-  async function onAddContactHandler(contact) {
+  const onAddContactHandler = async (contact) => {
     await addContact(contact);
     navigate('/');
-  }
+  };
 
   return (
     <section>
       <h2>{addPage[locale].instruction}</h2>
-      <ContactInput addContact={onAddContactHandler}/>
+      <ContactInput addContact={onAddContactHandler} />
     </section>
   );
 }

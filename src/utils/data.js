@@ -17,7 +17,7 @@ let contacts = [
     tag: 'rfajri27',
     imageUrl: '/images/rfajri27.jpeg',
   },
-]
+];
 
 function getContacts() {
   return contacts;
