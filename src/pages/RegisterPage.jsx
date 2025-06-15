@@ -1,20 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router';
-import { register } from '../utils/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { asyncRegisterUser } from '../states/authUser/action';
 import { registerPage } from '../utils/content';
-import LocaleContext from '../context/LocaleContext';
 import RegisterInput from '../components/RegisterInput';
 
 function RegisterPage() {
+  const locale = useSelector((states) => states.locale);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { locale } = useContext(LocaleContext);
-
-  const handleRegister = async (user) => {
-    const { error } = await register(user);
-    if (!error) {
-      navigate('/');
-    }
+  const handleRegister = async ({ name, email, password }) => {
+    dispatch(asyncRegisterUser({ name, email, password }));
+    navigate('/');
   };
 
   return (

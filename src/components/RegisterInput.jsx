@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import useInput from '../hooks/useInput';
-import LocaleContext from '../context/LocaleContext';
 import { registerPage } from '../utils/content';
 
 function RegisterInput({ register }) {
@@ -9,7 +9,7 @@ function RegisterInput({ register }) {
   const [email, handleEmailChange] = useInput('');
   const [password, handlePasswordChange] = useInput('');
 
-  const { locale } = useContext(LocaleContext);
+  const locale = useSelector((states) => states.locale);
 
   const handleSubmit = (event) => {
     event.preventDefault();

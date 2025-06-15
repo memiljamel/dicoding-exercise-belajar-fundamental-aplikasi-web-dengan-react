@@ -1,7 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Route, Routes } from 'react-router';
-import { getUserLogged, putAccessToken } from '../utils/api';
-import LocaleContext from '../context/LocaleContext';
+import React, { useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import LoadingBar from 'react-redux-loading-bar';
+import { asyncUnsetAuthUser } from '../states/authUser/action';
+import { asyncPreloadProcess } from '../states/isPreload/action';
 import { homePage } from '../utils/content';
 import Navigation from './Navigation';
 import HomePage from '../pages/HomePage';
@@ -10,74 +12,54 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 
 function ContactApp() {
-  const [authedUser, setAuthedUser] = useState(null);
-  const [initializing, setInitializing] = useState(true);
+  const authUser = useSelector((states) => states.authUser);
+  const isPreload = useSelector((states) => states.isPreload);
+  const locale = useSelector((states) => states.locale);
 
-  const [locale, setLocale] = useState(() => localStorage.getItem('locale') || 'id');
-
-  const toggleLocale = () => {
-    setLocale((prevState) => {
-      const newLocale = prevState === 'id' ? 'en' : 'id';
-      localStorage.setItem('locale', newLocale);
-      return newLocale;
-    });
-  };
-
-  const localeContextValue = useMemo(() => ({
-    locale,
-    toggleLocale,
-  }), [locale]);
-
-  const handleLoginSuccess = async ({ accessToken }) => {
-    putAccessToken(accessToken);
-    const { data } = await getUserLogged();
-    setAuthedUser(data);
-  };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    setAuthedUser(null);
-    putAccessToken('');
+    dispatch(asyncUnsetAuthUser());
+    navigate('/');
   };
 
   useEffect(() => {
-    getUserLogged().then(({ data }) => {
-      setAuthedUser(data);
-      setInitializing(false);
-    });
+    dispatch(asyncPreloadProcess());
+  }, [dispatch]);
 
-    return () => {
-      setInitializing(true);
-    };
-  }, []);
-
-  if (initializing) {
+  if (isPreload) {
     return null;
   }
 
-  if (authedUser === null) {
+  if (authUser === null) {
     return (
-      <LocaleContext.Provider value={localeContextValue}>
+      <>
+        <LoadingBar />
+
         <div className="contact-app">
           <header className="contact-app__header">
             <h1>{homePage[locale].appName}</h1>
           </header>
           <main>
             <Routes>
-              <Route path="/*" element={<LoginPage loginSuccess={handleLoginSuccess} />} />
+              <Route path="/*" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
             </Routes>
           </main>
         </div>
-      </LocaleContext.Provider>
+      </>
     );
   }
 
   return (
-    <LocaleContext.Provider value={localeContextValue}>
+    <>
+      <LoadingBar />
+
       <div className="contact-app">
         <header className="contact-app__header">
           <h1>{homePage[locale].appName}</h1>
-          <Navigation logout={handleLogout} name={authedUser.name} />
+          <Navigation logout={handleLogout} name={authUser.name} />
         </header>
         <main>
           <Routes>
@@ -86,7 +68,7 @@ function ContactApp() {
           </Routes>
         </main>
       </div>
-    </LocaleContext.Provider>
+    </>
   );
 }
 

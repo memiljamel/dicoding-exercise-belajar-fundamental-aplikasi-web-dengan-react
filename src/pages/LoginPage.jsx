@@ -1,20 +1,19 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router';
-import PropTypes from 'prop-types';
-import { login } from '../utils/api';
+import React from 'react';
+import { Link, useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginPage } from '../utils/content';
-import LocaleContext from '../context/LocaleContext';
+import { asyncSetAuthUser } from '../states/authUser/action';
 import LoginInput from '../components/LoginInput';
 
-function LoginPage({ loginSuccess }) {
-  const { locale } = useContext(LocaleContext);
+function LoginPage() {
+  const locale = useSelector((states) => states.locale);
 
-  const handleLogin = async (user) => {
-    const { error, data } = await login(user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    if (!error) {
-      loginSuccess(data);
-    }
+  const handleLogin = async ({ email, password }) => {
+    await dispatch(asyncSetAuthUser({ email, password }));
+    navigate('/');
   };
 
   return (
@@ -29,9 +28,5 @@ function LoginPage({ loginSuccess }) {
     </section>
   );
 }
-
-LoginPage.propTypes = {
-  loginSuccess: PropTypes.func.isRequired,
-};
 
 export default LoginPage;

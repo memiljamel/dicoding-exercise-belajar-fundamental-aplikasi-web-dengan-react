@@ -1,16 +1,23 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FiHome, FiLogOut, FiPlusCircle } from 'react-icons/fi';
-import LocaleContext from '../context/LocaleContext';
+import { asyncToggleLocaleActionCreator } from '../states/locale/action';
 
 function Navigation({ logout, name }) {
-  const { locale, toggleLocale } = useContext(LocaleContext);
+  const locale = useSelector((states) => states.locale);
+
+  const dispatch = useDispatch();
+
+  const handleToggleLocale = () => {
+    dispatch(asyncToggleLocaleActionCreator());
+  };
 
   return (
     <nav className="navigation">
       <ul>
-        <li><button type="button" onClick={toggleLocale}>{locale === 'id' ? 'en' : 'id'}</button></li>
+        <li><button type="button" onClick={handleToggleLocale}>{locale === 'id' ? 'en' : 'id'}</button></li>
         <li><Link to="/"><FiHome /></Link></li>
         <li><Link to="/add"><FiPlusCircle /></Link></li>
         <li>

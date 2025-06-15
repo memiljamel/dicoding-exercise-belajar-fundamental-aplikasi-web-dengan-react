@@ -1,17 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router';
-import { addContact } from '../utils/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { asyncSetAddContact } from '../states/contacts/action';
 import { addPage } from '../utils/content';
-import LocaleContext from '../context/LocaleContext';
 import ContactInput from '../components/ContactInput';
 
 function AddPage() {
+  const locale = useSelector((states) => states.locale);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { locale } = useContext(LocaleContext);
-
-  const onAddContactHandler = async (contact) => {
-    await addContact(contact);
+  const onAddContactHandler = async ({ name, tag }) => {
+    dispatch(asyncSetAddContact({ name, tag }));
     navigate('/');
   };
 

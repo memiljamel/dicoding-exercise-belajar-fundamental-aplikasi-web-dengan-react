@@ -1,22 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
-import { deleteContact, getContacts } from '../utils/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { asyncSetDeleteContact, asyncSetGetContacts } from '../states/contacts/action';
 import { homePage } from '../utils/content';
-import LocaleContext from '../context/LocaleContext';
 import ContactList from '../components/ContactList';
 import SearchBar from '../components/SearchBar';
 
 function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [contacts, setContacts] = useState([]);
   const [keyword, setKeyword] = useState(() => searchParams.get('keyword') || '');
 
-  const { locale } = useContext(LocaleContext);
+  const contacts = useSelector((states) => states.contacts);
+  const locale = useSelector((states) => states.locale);
+
+  const dispatch = useDispatch();
 
   const handleDelete = async (id) => {
-    await deleteContact(id);
-    const { data } = await getContacts();
-    setContacts(data);
+    dispatch(asyncSetDeleteContact(id));
   };
 
   const handleKeywordChange = (value) => {
@@ -25,10 +25,8 @@ function HomePage() {
   };
 
   useEffect(() => {
-    getContacts().then(({ data }) => {
-      setContacts(data);
-    });
-  }, []);
+    dispatch(asyncSetGetContacts());
+  }, [dispatch]);
 
   const filteredContacts = contacts.filter((contact) => contact.name.toLowerCase().includes(
     keyword.toLowerCase(),

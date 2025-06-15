@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import LocaleContext from '../context/LocaleContext';
+import { useSelector } from 'react-redux';
 import { homePage } from '../utils/content';
 
 function SearchBar({ keyword, keywordChange }) {
-  const { locale } = useContext(LocaleContext);
+  const locale = useSelector((states) => states.locale);
 
   return (
     <input

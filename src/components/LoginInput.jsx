@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import useInput from '../hooks/useInput';
-import LocaleContext from '../context/LocaleContext';
 import { loginPage } from '../utils/content';
 
 function LoginInput({ login }) {
   const [email, handleEmailChange] = useInput('');
   const [password, handlePasswordChange] = useInput('');
 
-  const { locale } = useContext(LocaleContext);
+  const locale = useSelector((states) => states.locale);
 
   const handleSubmit = (event) => {
     event.preventDefault();

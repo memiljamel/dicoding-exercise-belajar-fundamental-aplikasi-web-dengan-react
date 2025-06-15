@@ -30,12 +30,13 @@ async function login({ email, password }) {
   const responseJson = await response.json();
   console.log(responseJson);
 
-  if (responseJson.status !== 'success') {
-    alert(responseJson.message);
-    return { error: true, data: null };
+  const { status, message, data: { accessToken } } = responseJson;
+
+  if (status !== 'success') {
+    throw new Error(message);
   }
 
-  return { error: false, data: responseJson.data };
+  return accessToken;
 }
 
 async function register({ name, email, password }) {
@@ -50,12 +51,11 @@ async function register({ name, email, password }) {
   const responseJson = await response.json();
   console.log(responseJson);
 
-  if (responseJson.status !== 'success') {
-    alert(responseJson.message);
-    return { error: true };
-  }
+  const { status, message } = responseJson;
 
-  return { error: false };
+  if (status !== 'success') {
+    throw new Error(message);
+  }
 }
 
 async function getUserLogged() {
@@ -63,12 +63,13 @@ async function getUserLogged() {
   const responseJson = await response.json();
   console.log(responseJson);
 
-  if (responseJson.status !== 'success') {
-    alert(responseJson.message);
-    return { error: true, data: null };
+  const { status, message, data } = responseJson;
+
+  if (status !== 'success') {
+    throw new Error(message);
   }
 
-  return { error: false, data: responseJson.data };
+  return data;
 }
 
 async function addContact({ name, tag }) {
@@ -83,12 +84,13 @@ async function addContact({ name, tag }) {
   const responseJson = await response.json();
   console.log(responseJson);
 
-  if (responseJson.status !== 'success') {
-    alert(responseJson.message);
-    return { error: true, data: null };
+  const { status, message, data } = responseJson;
+
+  if (status !== 'success') {
+    throw new Error(message);
   }
 
-  return { error: false, data: responseJson.data };
+  return data;
 }
 
 async function getContacts() {
@@ -96,12 +98,13 @@ async function getContacts() {
   const responseJson = await response.json();
   console.log(responseJson);
 
-  if (responseJson.status !== 'success') {
-    alert(responseJson.message);
-    return { error: true, data: [] };
+  const { status, message, data } = responseJson;
+
+  if (status !== 'success') {
+    throw new Error(message);
   }
 
-  return { error: false, data: responseJson.data };
+  return data;
 }
 
 async function deleteContact(id) {
@@ -112,12 +115,11 @@ async function deleteContact(id) {
   const responseJson = await response.json();
   console.log(responseJson);
 
-  if (responseJson.status !== 'success') {
-    alert(responseJson.message);
-    return { error: true };
-  }
+  const { status, message } = responseJson;
 
-  return { error: false };
+  if (status !== 'success') {
+    throw new Error(message);
+  }
 }
 
 export {
