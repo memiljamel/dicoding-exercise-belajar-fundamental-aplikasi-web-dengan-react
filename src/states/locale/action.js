@@ -11,8 +11,8 @@ function setToggleLocaleActionCreator(locale) {
   };
 }
 
-function asyncToggleLocaleActionCreator() {
-  return async (dispatch, getState) => {
+function asyncToggleLocale() {
+  return (dispatch, getState) => {
     const newLocale = getState().locale === 'id' ? 'en' : 'id';
     localStorage.setItem('locale', newLocale);
     dispatch(setToggleLocaleActionCreator(newLocale));
@@ -22,5 +22,5 @@ function asyncToggleLocaleActionCreator() {
 export {
   ActionType,
   setToggleLocaleActionCreator,
-  asyncToggleLocaleActionCreator,
+  asyncToggleLocale,
 };

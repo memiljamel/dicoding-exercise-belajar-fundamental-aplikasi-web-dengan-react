@@ -1,5 +1,5 @@
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
-import { addContact, deleteContact, getContacts } from '../../utils/api';
+import api from '../../utils/api';
 
 const ActionType = {
   SET_ADD_CONTACT: 'SET_ADD_CONTACT',
@@ -39,7 +39,7 @@ function asyncSetAddContact({ name, tag }) {
     dispatch(showLoading());
 
     try {
-      const data = await addContact({ name, tag });
+      const data = await api.addContact({ name, tag });
       dispatch(setAddContactActionCreator(data));
     } catch (error) {
       alert(error.message);
@@ -54,7 +54,7 @@ function asyncSetGetContacts() {
     dispatch(showLoading());
 
     try {
-      const data = await getContacts();
+      const data = await api.getContacts();
       dispatch(setGetContactsActionCreator(data));
     } catch (error) {
       alert(error.message);
@@ -69,7 +69,7 @@ function asyncSetDeleteContact(id) {
     dispatch(showLoading());
 
     try {
-      await deleteContact(id);
+      await api.deleteContact(id);
       dispatch(setDeleteContactActionCreator(id));
     } catch (error) {
       alert(error.message);

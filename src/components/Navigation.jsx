@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FiHome, FiLogOut, FiPlusCircle } from 'react-icons/fi';
-import { asyncToggleLocaleActionCreator } from '../states/locale/action';
+import { asyncToggleLocale } from '../states/locale/action';
 
 function Navigation({ logout, name }) {
   const locale = useSelector((states) => states.locale);
@@ -11,7 +11,7 @@ function Navigation({ logout, name }) {
   const dispatch = useDispatch();
 
   const handleToggleLocale = () => {
-    dispatch(asyncToggleLocaleActionCreator());
+    dispatch(asyncToggleLocale());
   };
 
   return (

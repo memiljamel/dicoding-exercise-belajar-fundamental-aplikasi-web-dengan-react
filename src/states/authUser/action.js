@@ -1,7 +1,5 @@
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
-import {
-  getUserLogged, login, putAccessToken, register,
-} from '../../utils/api';
+import api from '../../utils/api';
 
 const ActionType = {
   SET_AUTH_USER: 'SET_AUTH_USER',
@@ -29,10 +27,10 @@ function asyncSetAuthUser({ email, password }) {
     dispatch(showLoading());
 
     try {
-      const accessToken = await login({ email, password });
-      putAccessToken(accessToken);
+      const accessToken = await api.login({ email, password });
+      api.putAccessToken(accessToken);
 
-      const data = await getUserLogged();
+      const data = await api.getUserLogged();
       dispatch(setAuthUserActionCreator(data));
     } catch (error) {
       alert(error.message);
@@ -43,9 +41,13 @@ function asyncSetAuthUser({ email, password }) {
 }
 
 function asyncUnsetAuthUser() {
-  return async (dispatch) => {
+  return (dispatch) => {
+    dispatch(showLoading());
+
     dispatch(unsetAuthUserActionCreator());
-    putAccessToken('');
+    api.putAccessToken('');
+
+    dispatch(hideLoading());
   };
 }
 
@@ -54,7 +56,7 @@ function asyncRegisterUser({ name, email, password }) {
     dispatch(showLoading());
 
     try {
-      await register({ name, email, password });
+      await api.register({ name, email, password });
     } catch (error) {
       alert(error.message);
     }

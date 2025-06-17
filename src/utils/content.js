@@ -1,24 +1,17 @@
 const homePage = {
-  id: {
-    appName: 'Aplikasi Kontak',
-    contactList: 'Daftar Kontak',
-    search: 'Cari berdasarkan nama',
-  },
   en: {
     appName: 'Contact App',
     contactList: 'Contact List',
     search: 'Search by name',
   },
+  id: {
+    appName: 'Aplikasi Kontak',
+    contactList: 'Daftar Kontak',
+    search: 'Cari berdasarkan nama',
+  },
 };
 
 const addPage = {
-  id: {
-    appName: 'Aplikasi Kontak',
-    instruction: 'Tambah Kontak',
-    name: 'Nama',
-    tag: 'Tag',
-    submit: 'Tambah',
-  },
   en: {
     appName: 'Contact App',
     instruction: 'Add Contact',
@@ -26,40 +19,37 @@ const addPage = {
     tag: 'Tag',
     submit: 'Add',
   },
+  id: {
+    appName: 'Aplikasi Kontak',
+    instruction: 'Tambah Kontak',
+    name: 'Nama',
+    tag: 'Tag',
+    submit: 'Tambah',
+  },
 };
 
 const loginPage = {
-  id: {
-    appName: 'Aplikasi Kontak',
-    instruction: 'Silahkan masuk untuk melanjutkan...',
-    email: 'Email',
-    password: 'Password',
-    submit: 'Masuk',
-    ask: 'Belum punya akun?',
-    answer: 'Daftar di sini.',
-  },
   en: {
     appName: 'Contact App',
     instruction: 'Please log in to continue...',
     email: 'Email',
     password: 'Password',
-    submit: 'Log In',
+    submit: 'Login',
     ask: 'Don\'t have an account?',
     answer: 'Register here.',
+  },
+  id: {
+    appName: 'Aplikasi Kontak',
+    instruction: 'Silahkan masuk untuk melanjutkan...',
+    email: 'Email',
+    password: 'Kata Sandi',
+    submit: 'Masuk',
+    ask: 'Belum punya akun?',
+    answer: 'Daftar di sini.',
   },
 };
 
 const registerPage = {
-  id: {
-    appName: 'Aplikasi Kontak',
-    instruction: 'Gak perlu serius-serius ya isinya...',
-    name: 'Nama',
-    email: 'Email',
-    password: 'Password',
-    submit: 'Daftar',
-    ask: 'Kembali ke',
-    answer: 'Masuk',
-  },
   en: {
     appName: 'Contact App',
     instruction: 'Don\'t take it too seriously, okay...',
@@ -69,6 +59,16 @@ const registerPage = {
     submit: 'Register',
     ask: 'Back to',
     answer: 'Login',
+  },
+  id: {
+    appName: 'Aplikasi Kontak',
+    instruction: 'Gak perlu serius-serius ya isinya...',
+    name: 'Nama',
+    email: 'Email',
+    password: 'Kata Sandi',
+    submit: 'Daftar',
+    ask: 'Kembali ke',
+    answer: 'Masuk',
   },
 };
 
