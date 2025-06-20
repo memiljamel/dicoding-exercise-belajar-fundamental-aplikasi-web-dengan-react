@@ -11,7 +11,7 @@ function RegisterPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleRegister = async ({ name, email, password }) => {
+  const handleRegister = ({ name, email, password }) => {
     dispatch(asyncRegisterUser({ name, email, password }));
     navigate('/');
   };

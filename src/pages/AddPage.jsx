@@ -11,7 +11,7 @@ function AddPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onAddContactHandler = async ({ name, tag }) => {
+  const onAddContactHandler = ({ name, tag }) => {
     dispatch(asyncSetAddContact({ name, tag }));
     navigate('/');
   };

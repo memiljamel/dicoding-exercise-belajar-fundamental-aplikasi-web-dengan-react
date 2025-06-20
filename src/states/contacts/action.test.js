@@ -4,9 +4,11 @@ import {
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';
 import {
-  asyncSetAddContact, asyncSetDeleteContact,
+  asyncSetAddContact,
+  asyncSetDeleteContact,
   asyncSetGetContacts,
-  setAddContactActionCreator, setDeleteContactActionCreator,
+  setAddContactActionCreator,
+  setDeleteContactActionCreator,
   setGetContactsActionCreator,
 } from './action';
 

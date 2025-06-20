@@ -15,7 +15,7 @@ function HomePage() {
 
   const dispatch = useDispatch();
 
-  const handleDelete = async (id) => {
+  const handleDelete = (id) => {
     dispatch(asyncSetDeleteContact(id));
   };
 

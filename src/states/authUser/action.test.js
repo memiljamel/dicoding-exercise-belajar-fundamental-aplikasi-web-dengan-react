@@ -5,7 +5,10 @@ import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';
 import {
   asyncRegisterUser,
-  asyncSetAuthUser, asyncUnsetAuthUser, setAuthUserActionCreator, unsetAuthUserActionCreator,
+  asyncSetAuthUser,
+  asyncUnsetAuthUser,
+  setAuthUserActionCreator,
+  unsetAuthUserActionCreator,
 } from './action';
 
 const fakeAccessTokenResponse = 'access-token';

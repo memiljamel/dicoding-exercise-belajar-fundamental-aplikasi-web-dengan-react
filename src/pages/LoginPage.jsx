@@ -11,8 +11,8 @@ function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogin = async ({ email, password }) => {
-    await dispatch(asyncSetAuthUser({ email, password }));
+  const handleLogin = ({ email, password }) => {
+    dispatch(asyncSetAuthUser({ email, password }));
     navigate('/');
   };
 
