@@ -29,7 +29,6 @@ const api = (() => {
     });
 
     const responseJson = await response.json();
-    console.log(responseJson);
 
     const { status, message, data: { accessToken } } = responseJson;
 
@@ -50,7 +49,6 @@ const api = (() => {
     });
 
     const responseJson = await response.json();
-    console.log(responseJson);
 
     const { status, message } = responseJson;
 
@@ -62,7 +60,6 @@ const api = (() => {
   async function getUserLogged() {
     const response = await fetchWithToken(`${BASE_URL}/users/me`);
     const responseJson = await response.json();
-    console.log(responseJson);
 
     const { status, message, data } = responseJson;
 
@@ -83,7 +80,6 @@ const api = (() => {
     });
 
     const responseJson = await response.json();
-    console.log(responseJson);
 
     const { status, message, data } = responseJson;
 
@@ -97,7 +93,6 @@ const api = (() => {
   async function getContacts() {
     const response = await fetchWithToken(`${BASE_URL}/contacts`);
     const responseJson = await response.json();
-    console.log(responseJson);
 
     const { status, message, data } = responseJson;
 
@@ -114,7 +109,6 @@ const api = (() => {
     });
 
     const responseJson = await response.json();
-    console.log(responseJson);
 
     const { status, message } = responseJson;
 

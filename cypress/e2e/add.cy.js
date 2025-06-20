@@ -73,7 +73,7 @@ describe('Add spec', () => {
           imageUrl: 'https://example.com/image.png',
         },
       },
-    }).as('add-contact');
+    }).as('create-contact');
 
     cy.visit('http://localhost:5173/add');
 
@@ -81,9 +81,29 @@ describe('Add spec', () => {
     cy.get('input[placeholder="Tag"]').type('johndoe');
     cy.get('button').contains(/^Add$/).click();
 
-    cy.wait('@add-contact');
+    cy.wait('@create-contact');
 
     cy.url().should('include', '/');
+
+    cy.intercept('GET', 'https://contact-api.dicoding.dev/v1/contacts', {
+      statusCode: 200,
+      body: {
+        status: 'success',
+        message: 'Contacts retrieved',
+        data: [
+          {
+            id: 'contact-yj5pc_LARC_AgK61',
+            name: 'John Doe',
+            tag: 'johndoe',
+            phoneNumber: '081234567890',
+            email: 'john@example.com',
+            imageUrl: 'https://example.com/image.png',
+          },
+        ],
+      },
+    }).as('get-contacts');
+
+    cy.wait('@get-contacts');
 
     cy.get('h3').contains(/^John Doe$/).should('be.visible');
     cy.get('p').contains(/^@johndoe$/).should('be.visible');
